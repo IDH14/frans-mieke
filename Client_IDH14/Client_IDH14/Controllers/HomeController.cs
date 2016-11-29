@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Client_IDH14.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Web;
@@ -11,7 +13,21 @@ namespace Client_IDH14.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var model = new List<File2>();
+
+            DirectoryInfo c = new DirectoryInfo(@"C:\Users\Mieke\Desktop\IDH14_Client");//Assuming Test is your Folder
+
+            FileInfo[] Files2 = c.GetFiles("*.*"); //Getting Text files
+
+            foreach (FileInfo file in Files2)
+            {
+                File2 tempFile = new File2();
+                tempFile.FileName = file.Name;
+
+                model.Add(tempFile);
+            }
+
+            return View(model);
         }
 
 
@@ -21,6 +37,8 @@ namespace Client_IDH14.Controllers
             //String message = "Hello world";
             Connect(server, port);
 
+            FileHandler fileHandler = new FileHandler();
+            
             return RedirectToAction("Index");
         }
 
