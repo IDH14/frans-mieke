@@ -3,3 +3,9 @@ c:\users\beest\documents\visual studio 2015\Projects\TcpServer\TcpServer\bin\Deb
 c:\users\beest\documents\visual studio 2015\Projects\TcpServer\TcpServer\bin\Debug\TcpServer.pdb
 c:\users\beest\documents\visual studio 2015\Projects\TcpServer\TcpServer\obj\Debug\TcpServer.exe
 c:\users\beest\documents\visual studio 2015\Projects\TcpServer\TcpServer\obj\Debug\TcpServer.pdb
+C:\Users\Frans\Source\Repos\frans-mieke\TcpServer\TcpServer\bin\Debug\TcpServer.exe.config
+C:\Users\Frans\Source\Repos\frans-mieke\TcpServer\TcpServer\obj\Debug\TcpServer.exe
+C:\Users\Frans\Source\Repos\frans-mieke\TcpServer\TcpServer\obj\Debug\TcpServer.pdb
+C:\Users\Frans\Source\Repos\frans-mieke\TcpServer\TcpServer\bin\Debug\TcpServer.exe
+C:\Users\Frans\Source\Repos\frans-mieke\TcpServer\TcpServer\bin\Debug\TcpServer.pdb
+C:\Users\Frans\Source\Repos\frans-mieke\TcpServer\TcpServer\obj\Debug\TcpServer.csprojResolveAssemblyReference.cache
