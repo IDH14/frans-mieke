@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>Connect to server!</h2>
+
+<p>@Html.ActionLink("Connect!", "About", "Home")</p>
+
+<form method="post" runat="server" action="Home/About">
+
+    Server IP: <input type="text" name="server" />
+    Port: <input type="text" name="port" />
+    <input type="submit" value="Connect!" class="btn btn-default" />
+
+</form>
+
+@model IEnumerable<string>
+<ul>
+    @foreach (var fullPath in Model)
+    {
+        var fileName = Path.GetFileName(fullPath);
+        <li>@fileName</li>
+    }
+</ul>
+
