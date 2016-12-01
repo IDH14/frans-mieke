@@ -135,4 +135,3 @@ C:\Users\Mieke\Documents\Visual Studio 2015\Projects\Client_IDH14\Client_IDH14\b
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\Client_IDH14\Client_IDH14\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\Client_IDH14\Client_IDH14\obj\Debug\Client_IDH14.dll
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\Client_IDH14\Client_IDH14\obj\Debug\Client_IDH14.pdb
-C:\Users\Mieke\Documents\Visual Studio 2015\Projects\Client_IDH14\Client_IDH14\obj\Debug\Client_IDH14.csprojResolveAssemblyReference.cache

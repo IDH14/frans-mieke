@@ -13,7 +13,7 @@ namespace Client_IDH14.Controllers
     {
         public ActionResult Index()
         {
-            var model = new List<File2>();
+            var model = new List<FileHandler>();
 
             DirectoryInfo c = new DirectoryInfo(@"C:\Users\Mieke\Desktop\IDH14_Client");//Assuming Test is your Folder
 
@@ -21,7 +21,7 @@ namespace Client_IDH14.Controllers
 
             foreach (FileInfo file in Files2)
             {
-                File2 tempFile = new File2();
+                FileHandler tempFile = new FileHandler();
                 tempFile.FileName = file.Name;
 
                 model.Add(tempFile);
@@ -31,15 +31,20 @@ namespace Client_IDH14.Controllers
         }
 
 
-        public ActionResult About(String server, String port)
+        public ActionResult Connect(String server, String port)
         {
             //String server = "127.0.0.1";
             //String message = "Hello world";
-            Connect(server, port);
+            ServerHandler.Connect(server, port);
 
-            FileHandler fileHandler = new FileHandler();
-            
             return RedirectToAction("Index");
+        }
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your about page.";
+
+            return View();
         }
 
         public ActionResult Contact()
@@ -49,63 +54,5 @@ namespace Client_IDH14.Controllers
             return View();
         }
 
-        
-        static void Connect(String server, String port)
-        {
-            try
-            {
-                // Create a TcpClient.
-                // Note, for this client to work you need to have a TcpServer 
-                // connected to the same address as specified by the server, port
-                // combination.
-                //Int32 port = 13000;
-                String message = "Hello world";
-                int portNumber = Int32.Parse(port);
-
-                TcpClient client = new TcpClient(server, portNumber);
-
-                // Translate the passed message into ASCII and store it as a Byte array.
-                Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
-
-                // Get a client stream for reading and writing.
-                //  Stream stream = client.GetStream();
-
-                NetworkStream stream = client.GetStream();
-
-                // Send the message to the connected TcpServer. 
-                stream.Write(data, 0, data.Length);
-
-                Console.WriteLine("Sent: {0}", message);
-
-                // Receive the TcpServer.response.
-
-                // Buffer to store the response bytes.
-                data = new Byte[256];
-
-                // String to store the response ASCII representation.
-                String responseData = String.Empty;
-
-                // Read the first batch of the TcpServer response bytes.
-                Int32 bytes = stream.Read(data, 0, data.Length);
-                responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-                Console.WriteLine("Received: {0}", responseData);
-
-                // Close everything.
-                stream.Close();
-                client.Close();
-            }
-            catch (ArgumentNullException e)
-            {
-                Console.WriteLine("ArgumentNullException: {0}", e);
-            }
-            catch (SocketException e)
-            {
-                Console.WriteLine("SocketException: {0}", e);
-            }
-
-            Console.WriteLine("\n Press Enter to continue...");
-            Console.Read();
-            
-        }
     }
 }

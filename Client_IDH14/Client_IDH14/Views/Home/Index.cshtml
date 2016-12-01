@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Client_IDH14.Models.File2>
+﻿@model IEnumerable<Client_IDH14.Models.FileHandler>
 
 @{
     ViewBag.Title = "Home Page";
@@ -6,9 +6,7 @@
 
 <h2>Connect to server!</h2>
 
-<p>@Html.ActionLink("Connect!", "About", "Home")</p>
-
-<form method="post" runat="server" action="Home/About">
+<form method="post" runat="server" action="Home/Connect">
 
     Server IP: <input type="text" name="server" />
     Port: <input type="text" name="port" />
