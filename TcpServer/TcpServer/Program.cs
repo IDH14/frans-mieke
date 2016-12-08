@@ -3,7 +3,6 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Collections.Generic;
 
 namespace TcpServer
 {
@@ -17,7 +16,7 @@ namespace TcpServer
                 // Set the TcpListener on port 13000.
                 Int32 port = 13000;
                 IPAddress localAddr = IPAddress.Parse("127.0.0.1");
-                string path = @"c:\idh14Server";
+                String path = @"c:\\idh14Server";
 
                 // TcpListener server = new TcpListener(port);
                 server = new TcpListener(localAddr, port);
@@ -28,7 +27,7 @@ namespace TcpServer
                 // Buffer for reading data
                 Byte[] bytes = new Byte[256];
                 String data = null;
-
+                //Checksums.ReadChecksums(path);
                 // Enter the listening loop.
                 while (true)
                 {
@@ -54,7 +53,7 @@ namespace TcpServer
 
                         // Process the data sent by the client.
                         data = data.ToUpper();
-                       
+
                         ServerFolder.GetFiles(path);
                         byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
 

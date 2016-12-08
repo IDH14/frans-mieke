@@ -8,4 +8,3 @@ C:\Users\Frans\Source\Repos\frans-mieke\TcpServer\TcpServer\obj\Debug\TcpServer.
 C:\Users\Frans\Source\Repos\frans-mieke\TcpServer\TcpServer\obj\Debug\TcpServer.pdb
 C:\Users\Frans\Source\Repos\frans-mieke\TcpServer\TcpServer\bin\Debug\TcpServer.exe
 C:\Users\Frans\Source\Repos\frans-mieke\TcpServer\TcpServer\bin\Debug\TcpServer.pdb
-C:\Users\Frans\Source\Repos\frans-mieke\TcpServer\TcpServer\obj\Debug\TcpServer.csprojResolveAssemblyReference.cache

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
 
 namespace TcpServer
 {
     class ServerFolder
     {
-        //static string path = @"c:\idh14Server";
+       //static string path = @"c:\idh14Server";
 
         public static void CreateFolder(string path)
         {
@@ -18,14 +17,16 @@ namespace TcpServer
                 // Determine whether the directory exists.
                 if (Directory.Exists(path))
                 {
-                    Console.WriteLine("That path exists already.");
-                    return;
+                    Console.WriteLine("That directory exists already.");
+                    Checksums.ExistsChecksums(path);
                 }
-
-                // Try to create the directory.
-                DirectoryInfo di = Directory.CreateDirectory(path);
-                Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(path));
-
+                else
+                {
+                    // Try to create the directory.
+                    DirectoryInfo di = Directory.CreateDirectory(path);
+                    Console.WriteLine("The directory (idh14Server) was created successfully at {0}.", Directory.GetCreationTime(path));
+                    Checksums.ExistsChecksums(path);
+                }
                 // Delete the directory.
                 // di.Delete();
                 // Console.WriteLine("The directory was deleted successfully.");
@@ -39,7 +40,9 @@ namespace TcpServer
 
         public static void GetFiles(string path)
         {
-           if (Directory.Exists(path))
+            try
+            {
+                if (Directory.Exists(path))
                 {
                     // This path is a directory
                     ProcessDirectory(path);
@@ -48,7 +51,11 @@ namespace TcpServer
                 {
                     Console.WriteLine("{0} is not a valid file or directory.", path);
                 }
-           
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                Console.WriteLine("DirectoryNotFoundException: {0}", e);
+            }
         }
         // Process all files in the directory passed in, recurse on any directories 
         // that are found, and process the files they contain.
