@@ -205,3 +205,5 @@ C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Cl
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\obj\Debug\Client_IDH14.csprojResolveAssemblyReference.cache
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\obj\Debug\Client_IDH14.dll
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\obj\Debug\Client_IDH14.pdb
+C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\CsvHelper.dll
+C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\CsvHelper.xml

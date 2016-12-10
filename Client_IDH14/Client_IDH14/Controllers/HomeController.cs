@@ -20,8 +20,7 @@ namespace Client_IDH14.Controllers
             try
             {
                 // Set c so folder can be checked by client
-                DirectoryInfo c = new DirectoryInfo(@"C:\Users\Mieke\Desktop\IDH14_Client\");
-                String folderPath = @"C:\Users\Mieke\Desktop\IDH14_Client\";
+                DirectoryInfo c = new DirectoryInfo(@"C:\idh14Client");
 
                 //Get all files
                 FileInfo[] Files2 = c.GetFiles("*.*");
@@ -36,9 +35,6 @@ namespace Client_IDH14.Controllers
                     //Show SHA1 hash of current version of the file
                     tempFile.Checksum = FileHandler.GetSha1Hash(filePath);
 
-                    //Update checksums.csv file
-                    FileHandler.UpdateChecksums(folderPath);
-
                     //Byte[] bytes = File.ReadAllBytes(filePath);
                     //string Content = Convert.ToBase64String(bytes);
 
@@ -48,6 +44,10 @@ namespace Client_IDH14.Controllers
             catch {
                        
             }
+
+            //Update checksums.csv file
+            String folderPath = @"C:\idh14Client";
+            FileHandler.UpdateChecksums(folderPath);
 
             return View(model);
         }

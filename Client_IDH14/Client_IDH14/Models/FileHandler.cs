@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CsvHelper;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,12 +33,19 @@ namespace Client_IDH14.Models
                 File.Create(folderPath + checksumFile);
             }
 
-            foreach (var file in folderPath)
+            //Create headers in File
+            string[] arrayHeader = new string[] { "FileName", "Checksum", "OriginalChecksum" };
+
+            using (var writer = new StreamWriter(folderPath + checksumFile))
             {
+                using (var csv = new CsvWriter(writer))
+                {
+                    csv.WriteHeader<FileHandler>();
+                }
+
+                //Forloop om bestanden te updaten
 
             }
-         
-
         }
     }
 }
