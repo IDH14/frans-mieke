@@ -15,10 +15,23 @@
 </form>
 
 <h2>Files</h2>
-<ul>
-    @foreach (var file in Model)
-    {
-        <li>@file.FileName</li>
-    }
-</ul>
 
+@foreach (var file in Model)
+{
+    <table>
+        <tr>
+            <td style="width:250px">@file.FileName</td>
+            <td style="width:500px">@file.Checksum</td>
+        </tr>
+    </table>
+}
+
+<form method="post" runat="server" action="Home/GetListServer">
+    <input type="submit" value="Get list" class="btn btn-default" />
+</form>
+<form method="post" runat="server" action="Home/GetFile">
+    <input type="submit" value="Get file" class="btn btn-default" />
+</form>
+<form method="post" runat="server" action="Home/PutFile">
+    <input type="submit" value="Put file" class="btn btn-default" />
+</form>

@@ -8,8 +8,6 @@ namespace Client_IDH14.Models
 {
     public class ServerHandler
     {
-
-
         public static void Connect(String server, String port)
         {
             try
