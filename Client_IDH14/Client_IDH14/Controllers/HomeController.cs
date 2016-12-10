@@ -34,10 +34,6 @@ namespace Client_IDH14.Controllers
 
                     //Show SHA1 hash of current version of the file
                     tempFile.Checksum = FileHandler.GetSha1Hash(filePath);
-
-                    //Byte[] bytes = File.ReadAllBytes(filePath);
-                    //string Content = Convert.ToBase64String(bytes);
-
                     model.Add(tempFile);
                 }
             }
@@ -46,8 +42,7 @@ namespace Client_IDH14.Controllers
             }
 
             //Update checksums.csv file
-            String folderPath = @"C:\idh14Client";
-            FileHandler.UpdateChecksums(folderPath);
+            FileHandler.UpdateChecksums();
 
             return View(model);
         }

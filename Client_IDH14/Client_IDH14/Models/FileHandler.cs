@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,28 +25,69 @@ namespace Client_IDH14.Models
             }
         }
 
-        public static void UpdateChecksums(string folderPath)
+        public static void UpdateChecksums()
         {
-            String checksumFile = @"\checksums.csv";
+            string path = @"C:\";
+            string checksumFile = @"checksums.csv";
 
-            if (!File.Exists(folderPath + checksumFile))
+            if (!File.Exists(path + checksumFile))
             {
-                File.Create(folderPath + checksumFile);
+                File.Create(path + checksumFile);
             }
 
-            //Create headers in File
-            string[] arrayHeader = new string[] { "FileName", "Checksum", "OriginalChecksum" };
-
-            using (var writer = new StreamWriter(folderPath + checksumFile))
+            using (var writer = new StreamWriter(path + checksumFile))
             {
                 using (var csv = new CsvWriter(writer))
                 {
                     csv.WriteHeader<FileHandler>();
+                    var list = GetFiles();
+
+                    foreach (var file in list)
+                    {
+                        csv.WriteRecord(file);
+                    }
                 }
-
-                //Forloop om bestanden te updaten
-
             }
+        }
+
+        public static List<FileHandler> GetFiles()
+        {
+            var model = new List<FileHandler>();
+
+            // Set c so folder can be checked by client
+            DirectoryInfo c = new DirectoryInfo(@"C:\idh14Client\");
+
+            //Get all files
+            FileInfo[] Files2 = c.GetFiles("*.*");
+
+            foreach (FileInfo file in Files2)
+            {
+                FileHandler tempFile = new FileHandler();
+                tempFile.FileName = file.Name;
+
+                string filePath = c + file.Name;
+
+                //Show SHA1 hash of current version of the file
+                tempFile.Checksum = FileHandler.GetSha1Hash(filePath);
+
+                //Byte[] bytes = File.ReadAllBytes(filePath);
+                //string Content = Convert.ToBase64String(bytes);
+
+                model.Add(tempFile);
+            }
+            return model;
+        }
+    }
+
+
+    public class MyClassMap : CsvClassMap<FileHandler>
+    {
+        public MyClassMap()
+        {
+            Map(m => m.FileName).Name("FileName");
+            Map(m => m.Content).Name("Content");
+            Map(m => m.Checksum).Name("Checksum");
+            Map(m => m.OriginalChecksum).Name("OriginalChecksum");
         }
     }
 }

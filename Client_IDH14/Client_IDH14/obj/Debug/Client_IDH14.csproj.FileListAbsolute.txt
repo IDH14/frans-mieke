@@ -152,6 +152,7 @@ C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Cl
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\Client_IDH14.dll
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\Client_IDH14.pdb
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\Antlr3.Runtime.dll
+C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\CsvHelper.dll
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\EntityFramework.dll
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\EntityFramework.SqlServer.dll
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\Microsoft.AspNet.Identity.Core.dll
@@ -178,6 +179,7 @@ C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Cl
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\System.Web.WebPages.dll
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\System.Web.WebPages.Razor.dll
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\WebGrease.dll
+C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\CsvHelper.xml
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\System.Web.Helpers.xml
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\System.Web.Mvc.xml
@@ -202,8 +204,6 @@ C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Cl
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\obj\Debug\Client_IDH14.csprojResolveAssemblyReference.cache
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\obj\Debug\Client_IDH14.dll
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\obj\Debug\Client_IDH14.pdb
-C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\CsvHelper.dll
-C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\CsvHelper.xml
+C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\obj\Debug\Client_IDH14.csprojResolveAssemblyReference.cache
