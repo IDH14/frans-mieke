@@ -32,21 +32,27 @@ namespace Client_IDH14.Models
 
             if (!File.Exists(path + checksumFile))
             {
-                File.Create(path + checksumFile);
-            }
-
-            using (var writer = new StreamWriter(path + checksumFile))
-            {
-                using (var csv = new CsvWriter(writer))
+                using (var myFile = File.Create(path + checksumFile))
                 {
-                    csv.WriteHeader<FileHandler>();
-                    var list = GetFiles();
-
-                    foreach (var file in list)
+                    using (var writer = new StreamWriter(path + checksumFile))
                     {
-                        csv.WriteRecord(file);
+                        using (var csv = new CsvWriter(writer))
+                        {
+                            csv.WriteHeader<FileHandler>();
+                            var list = GetFiles();
+
+                            foreach (var file in list)
+                            {
+                                csv.WriteRecord(file);
+                            }
+                        }
                     }
                 }
+            } else
+            {
+                //to do: Controleren of files uit map nieuw zijn t.o.v. checksums.csv
+                //If yes: informatie bijvoegen
+                //If no: informatie vergelijken en updaten
             }
         }
 
@@ -69,9 +75,6 @@ namespace Client_IDH14.Models
 
                 //Show SHA1 hash of current version of the file
                 tempFile.Checksum = FileHandler.GetSha1Hash(filePath);
-
-                //Byte[] bytes = File.ReadAllBytes(filePath);
-                //string Content = Convert.ToBase64String(bytes);
 
                 model.Add(tempFile);
             }
