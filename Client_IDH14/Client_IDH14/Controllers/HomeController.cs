@@ -17,28 +17,22 @@ namespace Client_IDH14.Controllers
             //Make list so files can be shown on frontend
             var model = new List<FileHandler>();
 
-            try
+            // Set c so folder can be checked by client
+            DirectoryInfo c = new DirectoryInfo(@"C:\idh14Client\");
+
+            //Get all files
+            FileInfo[] Files2 = c.GetFiles("*.*");
+
+            foreach (FileInfo file in Files2)
             {
-                // Set c so folder can be checked by client
-                DirectoryInfo c = new DirectoryInfo(@"C:\idh14Client");
+                FileHandler tempFile = new FileHandler();
+                tempFile.FileName = file.Name;
 
-                //Get all files
-                FileInfo[] Files2 = c.GetFiles("*.*");
+                string filePath = c + file.Name;
 
-                foreach (FileInfo file in Files2)
-                {
-                    FileHandler tempFile = new FileHandler();
-                    tempFile.FileName = file.Name;
-
-                    string filePath = c + file.Name;
-
-                    //Show SHA1 hash of current version of the file
-                    tempFile.Checksum = FileHandler.GetSha1Hash(filePath);
-                    model.Add(tempFile);
-                }
-            }
-            catch {
-                       
+                //Show SHA1 hash of current version of the file
+                tempFile.Checksum = FileHandler.GetSha1Hash(filePath);
+                model.Add(tempFile);
             }
 
             //Update checksums.csv file
