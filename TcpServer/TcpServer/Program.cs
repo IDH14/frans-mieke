@@ -47,15 +47,15 @@ namespace TcpServer
 
                     // Loop to receive all the data sent by the client.
                     while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
-                    {                           
+                    {
                         // Translate data bytes to a ASCII string.
-                        data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
+                        data = System.Text.Encoding.Unicode.GetString(bytes, 0, i);
                         data = cleanMessage(bytes);
                         Console.WriteLine("Received: {0}", data);
 
                         if (data.StartsWith("GET"))
                         {
-                            response = ServerFolder.GetFile(path, data);            
+                            response = ServerFolder.GetFile(path, data);
                         }
                         else if (data.StartsWith("PUT"))
                         {
@@ -65,27 +65,28 @@ namespace TcpServer
                         {
                             ServerFolder.GetList();
                         }
-                        else if (data.StartsWith("DELETE")) {
+                        else if (data.StartsWith("DELETE"))
+                        {
                             ServerFolder.DeleteFile(data);
                         }
 
                         // Process the data sent by the client.
                         //data = data.ToUpper();
-
+                        Console.WriteLine("Sent: {0}", response);
                         byte[] msg = System.Text.Encoding.Unicode.GetBytes(response);
 
                         // Send back a response.
                         stream.Write(msg, 0, msg.Length);
                         Console.WriteLine("Sent: {0}", msg);
                     }
-
-                    // Shutdown and end connection
-                    client.Close();
                 }
             }
             catch (SocketException e)
             {
                 Console.WriteLine("SocketException: {0}", e);
+            }
+            catch (IOException ex) {
+                Console.WriteLine("Connection closed by client", ex);
             }
             finally
             {

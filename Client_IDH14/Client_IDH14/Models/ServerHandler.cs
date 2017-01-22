@@ -92,12 +92,14 @@ namespace Client_IDH14.Models
 
             // Read the first batch of the TcpServer response bytes.
             Int32 bytes = stream.Read(data, 0, data.Length);
-            responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-            Console.WriteLine("Received: {0}", responseData);
+            responseData = System.Text.Encoding.Unicode.GetString(data, 0, bytes);
+            //Console.WriteLine("Received: {0}", responseData);
+            System.Diagnostics.Debug.WriteLine("Received: {0}", responseData);
 
             // Close everything.
             stream.Close();
             client.Close();
+
 
         }
     }
