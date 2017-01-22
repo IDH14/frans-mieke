@@ -2,10 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net.Sockets;
-using System.Security.Cryptography;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Client_IDH14.Controllers
@@ -48,17 +44,27 @@ namespace Client_IDH14.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
         public ActionResult GetListServer()
         {
             return RedirectToAction("Index");
         }
 
-        public ActionResult GetFile()
+        [HttpPost]
+        public ActionResult GetFile(string selectedFile)
         {
+            if (selectedFile != null)
+            {
+                string server = "127.0.0.1";
+                string port = "13000";
+
+                ServerHandler.GetFile(server, port, selectedFile);
+            }
             return RedirectToAction("Index");
         }
 
-        public ActionResult PutFile()
+        [HttpPost]
+        public ActionResult PutFile(string selectedFile)
         {
             return RedirectToAction("Index");
         }

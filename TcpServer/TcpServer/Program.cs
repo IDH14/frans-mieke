@@ -43,23 +43,40 @@ namespace TcpServer
                     NetworkStream stream = client.GetStream();
 
                     int i;
+                    string response = null;
 
                     // Loop to receive all the data sent by the client.
                     while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
-                    {
+                    {                           
                         // Translate data bytes to a ASCII string.
                         data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
+                        data = cleanMessage(bytes);
                         Console.WriteLine("Received: {0}", data);
 
-                        // Process the data sent by the client.
-                        data = data.ToUpper();
+                        if (data.StartsWith("GET"))
+                        {
+                            response = ServerFolder.GetFile(path, data);            
+                        }
+                        else if (data.StartsWith("PUT"))
+                        {
+                            ServerFolder.PutFile(data);
+                        }
+                        else if (data.StartsWith("LIST"))
+                        {
+                            ServerFolder.GetList();
+                        }
+                        else if (data.StartsWith("DELETE")) {
+                            ServerFolder.DeleteFile(data);
+                        }
 
-                        ServerFolder.GetFiles(path);
-                        byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
+                        // Process the data sent by the client.
+                        //data = data.ToUpper();
+
+                        byte[] msg = System.Text.Encoding.Unicode.GetBytes(response);
 
                         // Send back a response.
                         stream.Write(msg, 0, msg.Length);
-                        Console.WriteLine("Sent: {0}", data);
+                        Console.WriteLine("Sent: {0}", msg);
                     }
 
                     // Shutdown and end connection
@@ -76,9 +93,23 @@ namespace TcpServer
                 server.Stop();
             }
 
-
             Console.WriteLine("\nHit enter to continue...");
             Console.Read();
+        }
+
+        private static string cleanMessage(byte[] bytes)
+        {
+            string message = System.Text.Encoding.Unicode.GetString(bytes);
+
+            string messageToPrint = null;
+            foreach (var nullChar in message)
+            {
+                if (nullChar != '\0')
+                {
+                    messageToPrint += nullChar;
+                }
+            }
+            return messageToPrint;
         }
     }
 }

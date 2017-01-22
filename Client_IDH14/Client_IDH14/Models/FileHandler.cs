@@ -3,9 +3,7 @@ using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Web;
 
 namespace Client_IDH14.Models
 {
@@ -51,8 +49,9 @@ namespace Client_IDH14.Models
                         }
                     }
                 }
-            
-        } else
+
+            }
+            else
             {
                 //to do: Controleren of files uit map nieuw zijn t.o.v. checksums.csv
                 //If yes: informatie bijvoegen
@@ -60,41 +59,57 @@ namespace Client_IDH14.Models
             }
         }
 
-    public static List<FileHandler> GetFiles()
-    {
-        var model = new List<FileHandler>();
-
-        // Set c so folder can be checked by client
-        DirectoryInfo c = new DirectoryInfo(@"C:\idh14Client\");
-
-        //Get all files
-        FileInfo[] Files2 = c.GetFiles("*.*");
-
-        foreach (FileInfo file in Files2)
+        public static List<FileHandler> GetFiles()
         {
-            FileHandler tempFile = new FileHandler();
-            tempFile.FileName = file.Name;
+            var model = new List<FileHandler>();
 
-            string filePath = c + file.Name;
+            // Set c so folder can be checked by client
+            DirectoryInfo c = new DirectoryInfo(@"C:\idh14Client\");
 
-            //Show SHA1 hash of current version of the file
-            tempFile.Checksum = FileHandler.GetSha1Hash(filePath);
+            //Get all files
+            FileInfo[] Files2 = c.GetFiles("*.*");
 
-            model.Add(tempFile);
+            foreach (FileInfo file in Files2)
+            {
+                FileHandler tempFile = new FileHandler();
+                tempFile.FileName = file.Name;
+
+                string filePath = c + file.Name;
+
+                //Show SHA1 hash of current version of the file
+                tempFile.Checksum = FileHandler.GetSha1Hash(filePath);
+
+                model.Add(tempFile);
+            }
+            return model;
         }
-        return model;
+
+        public static string FileNameToJSON(string selectedFile)
+        {
+            string fileName = Base64.Base64Encode(selectedFile);
+
+            string str = "GET {";
+            str += " 'filename': '" + fileName;
+            str += "'}";
+
+            return str;
+        }
+
+        public static string FileToJSON(string selectedFile) {
+
+            string str = "PUT {";
+            return str;
+        }
     }
-}
 
-
-public class MyClassMap : CsvClassMap<FileHandler>
-{
-    public MyClassMap()
+    public class MyClassMap : CsvClassMap<FileHandler>
     {
-        Map(m => m.FileName).Name("FileName");
-        Map(m => m.Content).Name("Content");
-        Map(m => m.Checksum).Name("Checksum");
-        Map(m => m.OriginalChecksum).Name("OriginalChecksum");
+        public MyClassMap()
+        {
+            Map(m => m.FileName).Name("FileName");
+            Map(m => m.Content).Name("Content");
+            Map(m => m.Checksum).Name("Checksum");
+            Map(m => m.OriginalChecksum).Name("OriginalChecksum");
+        }
     }
-}
 }

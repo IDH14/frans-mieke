@@ -8,7 +8,7 @@ namespace Client_IDH14.Models
 {
     public class ServerHandler
     {
-        public static void Connect(String server, String port)
+        public static void Connect(string server, string port)
         {
             try
             {
@@ -63,6 +63,41 @@ namespace Client_IDH14.Models
 
             Console.WriteLine("\n Press Enter to continue...");
             Console.Read();
+
+        }
+
+        public static void GetFile(string server, string port, string selectedFile) {
+
+            int portNumber = Int32.Parse(port);
+            TcpClient client = new TcpClient(server, portNumber);
+
+            Byte[] data = System.Text.Encoding.Unicode.GetBytes(FileHandler.FileNameToJSON(selectedFile));
+
+            // Get a client stream for reading and writing.
+            //  Stream stream = client.GetStream();
+
+            NetworkStream stream = client.GetStream();
+            // Send the message to the connected TcpServer. 
+            stream.Write(data, 0, data.Length);
+
+            Console.WriteLine("Sent: {0}", data);
+
+            // Receive the TcpServer.response.
+
+            // Buffer to store the response bytes.
+            data = new Byte[256];
+
+            // String to store the response ASCII representation.
+            String responseData = String.Empty;
+
+            // Read the first batch of the TcpServer response bytes.
+            Int32 bytes = stream.Read(data, 0, data.Length);
+            responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+            Console.WriteLine("Received: {0}", responseData);
+
+            // Close everything.
+            stream.Close();
+            client.Close();
 
         }
     }
