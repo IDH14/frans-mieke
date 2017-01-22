@@ -4,19 +4,18 @@
     ViewBag.Title = "Home Page";
 }
 
-<h2>Connect to server!</h2>
+<h2>Get a file</h2>
 
-<form method="post" runat="server" action="Connect">
+<form method="post" runat="server" action="Home/GetFile">
 
-    Server IP: <input type="text" name="server" />
-    Port: <input type="text" name="port" />
-    <input type="submit" value="Connect!" class="btn btn-default" />
+    Filename: <input type="text" name="selectedFile" />
+    <input type="submit" value="Get File!" class="btn btn-default" />
 
 </form>
 
-<h2>Files</h2>
+<h2>Upload a file</h2>
 
-<form method="post" runat="server" action="Home/GetFile">
+<form method="post" runat="server" action="Home/PutFile">
     @foreach (var file in Model)
 
     {
@@ -26,13 +25,11 @@
         </span>
     }
 
-    <input type="submit" value="Get File" class="btn btn-default" />
+    <input type="submit" value="Upload file" class="btn btn-default" />
 </form>
+
+<h2>Get list from server</h2>
 
     <form method="post" runat="server" action="Home/GetListServer">
         <input type="submit" value="Get list" class="btn btn-default" />
-    </form>
-
-    <form method="post" runat="server" action="Home/PutFile">
-        <input type="submit" value="Put file" class="btn btn-default" />
     </form>

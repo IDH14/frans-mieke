@@ -13,6 +13,7 @@ namespace Client_IDH14.Models
         public string Content { get; set; }
         public string Checksum { get; set; }
         public string OriginalChecksum { get; set; }
+        public int Status { get; set; }
 
         public static string GetSha1Hash(string filePath)
         {
@@ -98,6 +99,12 @@ namespace Client_IDH14.Models
         public static string FileToJSON(string selectedFile) {
 
             string str = "PUT {";
+            return str;
+        }
+
+        public static string ListToJSON()
+        {
+            string str = "LIST { }";
             return str;
         }
     }

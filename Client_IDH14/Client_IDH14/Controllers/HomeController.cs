@@ -47,6 +47,9 @@ namespace Client_IDH14.Controllers
         [HttpPost]
         public ActionResult GetListServer()
         {
+            string server = "127.0.0.1";
+            string port = "13000";
+            ServerHandler.GetList(server, port);
             return RedirectToAction("Index");
         }
 
@@ -66,6 +69,14 @@ namespace Client_IDH14.Controllers
         [HttpPost]
         public ActionResult PutFile(string selectedFile)
         {
+            if (selectedFile != null)
+            {
+                string server = "127.0.0.1";
+                string port = "13000";
+
+                ServerHandler.PutFile(server, port, selectedFile);
+            }
+
             return RedirectToAction("Index");
         }
 

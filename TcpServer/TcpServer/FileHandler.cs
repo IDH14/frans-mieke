@@ -15,17 +15,17 @@ namespace TcpServer
         public string Checksum { get; set; }
         public string OriginalChecksum { get; set; }
 
-        public static string Response200ToJSON(string fileName, string content, string entry)
+        public static string Response200ToJSON(string name2, string content, string entry)
         {
-            string name = Base64.Base64Encode(fileName);
+            string name = Base64.Base64Encode(name2);
             string checksum = GetSha1Hash(entry);
                         
-            string str = "RESPONSE {";
-            str += " 'status': 200,";
-            str += " 'filename': '" + name;
-            str += " 'content': '" + content;
-            str += " 'checksum': '" + checksum;
-            str += "'}";
+             string str = "RESPONSE {";
+            str += " 'status': '200',";
+            str += " 'filename': '" + name + "',";
+            str += " 'content': '" + content + "',";
+            str += " 'checksum': '" + checksum + "',";
+            str += "}";
 
             return str;
         }

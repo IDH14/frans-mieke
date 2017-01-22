@@ -106,7 +106,7 @@ namespace TcpServer
                         specificEntry = entry;
                         Byte[] bytes = File.ReadAllBytes(specificEntry);
                         String content = Convert.ToBase64String(bytes);
-                        response = FileHandler.Response200ToJSON(fileName, content, entry);
+                        response = FileHandler.Response200ToJSON(name2, content, entry);
                         
                     }
                 }
