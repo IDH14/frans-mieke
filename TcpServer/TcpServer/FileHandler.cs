@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TcpServer
 {
@@ -20,12 +16,12 @@ namespace TcpServer
             string name = Base64.Base64Encode(name2);
             string checksum = GetSha1Hash(entry);
                         
-             string str = "RESPONSE {";
+            string str = "RESPONSE {";
             str += " 'status': '200',";
             str += " 'filename': '" + name + "',";
             str += " 'content': '" + content + "',";
-            str += " 'checksum': '" + checksum + "',";
-            str += "}";
+            str += " 'checksum': '" + checksum;
+            str += "'}";
 
             return str;
         }

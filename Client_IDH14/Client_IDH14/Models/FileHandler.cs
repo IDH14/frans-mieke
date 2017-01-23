@@ -13,7 +13,7 @@ namespace Client_IDH14.Models
         public string Content { get; set; }
         public string Checksum { get; set; }
         public string OriginalChecksum { get; set; }
-        public int Status { get; set; }
+        public string Status { get; set; }
 
         public static string GetSha1Hash(string filePath)
         {
@@ -92,19 +92,35 @@ namespace Client_IDH14.Models
             string str = "GET {";
             str += " 'filename': '" + fileName;
             str += "'}";
-
             return str;
         }
 
-        public static string FileToJSON(string selectedFile) {
+        public static string FileToJSON(string selectedFile)
+        {
+            string fileName = Base64.Base64Encode(selectedFile);
 
             string str = "PUT {";
+            str += " 'filename': '" + fileName;
+            //str += " 'content': '" + content + "',";
+            //str += " 'checksum': '" + checksum + "',";
+            //str += " 'originalchecksum': '" + originalchecksum + "',";
+            str += "}";
             return str;
         }
 
         public static string ListToJSON()
         {
             string str = "LIST { }";
+            return str;
+        }
+
+        public static string DeleteToJSON(string selectedFile)
+        {
+            string fileName = Base64.Base64Encode(selectedFile);
+
+            string str = "DELETE {";
+            str += " 'filename': '" + fileName;
+            str += "}";
             return str;
         }
     }

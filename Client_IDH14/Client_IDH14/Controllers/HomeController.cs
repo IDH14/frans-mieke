@@ -38,45 +38,46 @@ namespace Client_IDH14.Controllers
         }
 
 
-        public ActionResult Connect(String server, String port)
+        public ActionResult Connect(string server, string port)
         {
             ServerHandler.Connect(server, port);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult GetListServer()
+        public ActionResult GetListServer(string server, string port)
         {
-            string server = "127.0.0.1";
-            string port = "13000";
             ServerHandler.GetList(server, port);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult GetFile(string selectedFile)
+        public ActionResult GetFile(string server, string port, string selectedFile)
         {
             if (selectedFile != null)
             {
-                string server = "127.0.0.1";
-                string port = "13000";
-
                 ServerHandler.GetFile(server, port, selectedFile);
             }
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult PutFile(string selectedFile)
+        public ActionResult PutFile(string server, string port, string selectedFile)
         {
             if (selectedFile != null)
             {
-                string server = "127.0.0.1";
-                string port = "13000";
-
                 ServerHandler.PutFile(server, port, selectedFile);
             }
+            return RedirectToAction("Index");
+        }
 
+        [HttpPost]
+        public ActionResult DeleteFile(string server, string port, string selectedFile)
+        {
+            if (selectedFile != null)
+            {
+                ServerHandler.DeleteFile(server, port, selectedFile);
+            }
             return RedirectToAction("Index");
         }
 

@@ -7,15 +7,24 @@
 <h2>Get a file</h2>
 
 <form method="post" runat="server" action="Home/GetFile">
-
+    
+    Server: <input type="text" name="server" />
+    
+    Port: <input type="text" name="port" />
+    </br></br>
     Filename: <input type="text" name="selectedFile" />
-    <input type="submit" value="Get File!" class="btn btn-default" />
+    <input type="submit" value="Get file!" class="btn btn-default" />
 
 </form>
 
 <h2>Upload a file</h2>
 
 <form method="post" runat="server" action="Home/PutFile">
+    
+    Server: <input type="text" name="server" />
+
+    Port: <input type="text" name="port" />
+    </br></br>
     @foreach (var file in Model)
 
     {
@@ -31,5 +40,23 @@
 <h2>Get list from server</h2>
 
     <form method="post" runat="server" action="Home/GetListServer">
+
+        Server: <input type="text" name="server" />
+
+        Port: <input type="text" name="port" />
+        </br></br>
         <input type="submit" value="Get list" class="btn btn-default" />
     </form>
+
+<h2>Delete a file</h2>
+
+<form method="post" runat="server" action="Home/DeleteFile">
+
+    Server: <input type="text" name="server" />
+
+    Port: <input type="text" name="port" />
+    </br></br>
+    Filename: <input type="text" name="selectedFile" />
+    <input type="submit" value="Delete file!" class="btn btn-default" />
+
+</form>

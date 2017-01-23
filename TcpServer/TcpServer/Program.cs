@@ -25,7 +25,7 @@ namespace TcpServer
                 server.Start();
                 ServerFolder.CreateFolder(path);
                 // Buffer for reading data
-                Byte[] bytes = new Byte[256];
+                Byte[] bytes = new Byte[1024];
                 String data = null;
                 //Checksums.ReadChecksums(path);
                 // Enter the listening loop.
