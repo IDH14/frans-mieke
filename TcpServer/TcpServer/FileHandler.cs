@@ -11,7 +11,7 @@ namespace TcpServer
         public string Checksum { get; set; }
         public string OriginalChecksum { get; set; }
 
-        public static string Response200ToJSON(string name2, string content, string entry)
+        public static string ResponseGET200ToJSON(string name2, string content, string entry)
         {
             string name = Base64.Base64Encode(name2);
             string checksum = GetSha1Hash(entry);
@@ -22,6 +22,15 @@ namespace TcpServer
             str += " 'content': '" + content + "',";
             str += " 'checksum': '" + checksum;
             str += "'}";
+
+            return str;
+        }
+
+        public static string ResponseGET404ToJSON()
+        {
+            string str = "RESPONSE {";
+            str += " 'status': '404'";
+            str += "}";
 
             return str;
         }

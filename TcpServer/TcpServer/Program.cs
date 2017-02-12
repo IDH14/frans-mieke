@@ -77,7 +77,7 @@ namespace TcpServer
 
                         // Send back a response.
                         stream.Write(msg, 0, msg.Length);
-                        Console.WriteLine("Sent: {0}", msg);
+                        //Console.WriteLine("Sent: {0}", msg);
                     }
                 }
             }
