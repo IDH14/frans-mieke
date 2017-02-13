@@ -1,17 +1,18 @@
 ﻿using System;
 using System.IO;
+using Newtonsoft.Json;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace TcpServer
 {
     class ServerFolder
     {
-       //static string path = @"c:\idh14Server";
+        //static string path = @"c:\idh14Server";
 
         public static void CreateFolder(string path)
         {
-            // Specify the directory you want to manipulate.
-            
-            
+            // Specify the directory you want to manipulate.  
             try
             {
                 // Determine whether the directory exists.
@@ -57,6 +58,7 @@ namespace TcpServer
                 Console.WriteLine("DirectoryNotFoundException: {0}", e);
             }
         }
+
         // Process all files in the directory passed in, recurse on any directories 
         // that are found, and process the files they contain.
         public static void ProcessDirectory(string targetDirectory)
@@ -78,5 +80,59 @@ namespace TcpServer
             Console.WriteLine("Processed file '{0}'.", path);
         }
 
+        public static string GetFile(string path, string data)
+        {
+            string cleanData = SplitString(data);
+
+            FileHandler file = JsonConvert.DeserializeObject<FileHandler>(cleanData);
+
+            string fileName = Base64.Base64Decode(file.FileName);
+            Console.WriteLine("Check " + fileName);
+
+            string[] fileEntries = Directory.GetFiles(path);
+            string response = null;
+            List<string> fileNames = new List<string>();
+            string specificEntry;
+
+            foreach (string entry in fileEntries)
+            {
+                string name = Path.GetFileName(entry);
+                fileNames.Add(name);
+
+                foreach (string name2 in fileNames)
+                {
+                    if (fileName == name2)
+                    {
+                        specificEntry = entry;
+                        Byte[] bytes = File.ReadAllBytes(specificEntry);
+                        String content = Convert.ToBase64String(bytes);
+                        response = FileHandler.Response200ToJSON(name2, content, entry);
+                        
+                    }
+                }
+            }
+            return response;
+        }
+
+        public static void PutFile(string data)
+        {
+
+        }
+
+        public static void DeleteFile(string data)
+        {
+
+        }
+
+        public static void GetList()
+        {
+
+        }
+
+        public static string SplitString(string data)
+        {
+            string output = data.Substring(data.IndexOf(' ') + 1);
+            return output;
+        }
     }
 }

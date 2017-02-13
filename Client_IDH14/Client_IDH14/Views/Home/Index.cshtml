@@ -4,34 +4,59 @@
     ViewBag.Title = "Home Page";
 }
 
-<h2>Connect to server!</h2>
+<h2>Get a file</h2>
 
-<form method="post" runat="server" action="Home/Connect">
-
-    Server IP: <input type="text" name="server" />
-    Port: <input type="text" name="port" />
-    <input type="submit" value="Connect!" class="btn btn-default" />
-
-</form>
-
-<h2>Files</h2>
-
-@foreach (var file in Model)
-{
-    <table>
-        <tr>
-            <td style="width:250px">@file.FileName</td>
-            <td style="width:500px">@file.Checksum</td>
-        </tr>
-    </table>
-}
-
-<form method="post" runat="server" action="Home/GetListServer">
-    <input type="submit" value="Get list" class="btn btn-default" />
-</form>
 <form method="post" runat="server" action="Home/GetFile">
-    <input type="submit" value="Get file" class="btn btn-default" />
+    
+    Server: <input type="text" name="server" />
+    
+    Port: <input type="text" name="port" />
+    </br></br>
+    Filename: <input type="text" name="selectedFile" />
+    <input type="submit" value="Get file!" class="btn btn-default" />
+
 </form>
+
+<h2>Upload a file</h2>
+
 <form method="post" runat="server" action="Home/PutFile">
-    <input type="submit" value="Put file" class="btn btn-default" />
+    
+    Server: <input type="text" name="server" />
+
+    Port: <input type="text" name="port" />
+    </br></br>
+    @foreach (var file in Model)
+
+    {
+        <span>
+            <input type="checkbox" name="selectedFile" value="@file.FileName" />
+            <label for="@file.FileName">@file.FileName</label>
+        </span>
+    }
+
+    <input type="submit" value="Upload file" class="btn btn-default" />
+</form>
+
+<h2>Get list from server</h2>
+
+    <form method="post" runat="server" action="Home/GetListServer">
+
+        Server: <input type="text" name="server" />
+
+        Port: <input type="text" name="port" />
+        </br></br>
+        <input type="submit" value="Get list" class="btn btn-default" />
+    </form>
+
+<h2>Delete a file</h2>
+
+<form method="post" runat="server" action="Home/DeleteFile">
+
+    Server: <input type="text" name="server" />
+
+    Port: <input type="text" name="port" />
+    </br></br>
+    Filename: <input type="text" name="selectedFile" />
+    <input type="submit" value="Delete file!" class="btn btn-default" />
+
 </form>

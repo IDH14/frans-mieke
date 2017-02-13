@@ -2,10 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net.Sockets;
-using System.Security.Cryptography;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Client_IDH14.Controllers
@@ -42,24 +38,46 @@ namespace Client_IDH14.Controllers
         }
 
 
-        public ActionResult Connect(String server, String port)
+        public ActionResult Connect(string server, string port)
         {
             ServerHandler.Connect(server, port);
             return RedirectToAction("Index");
         }
 
-        public ActionResult GetListServer()
+        [HttpPost]
+        public ActionResult GetListServer(string server, string port)
         {
+            ServerHandler.GetList(server, port);
             return RedirectToAction("Index");
         }
 
-        public ActionResult GetFile()
+        [HttpPost]
+        public ActionResult GetFile(string server, string port, string selectedFile)
         {
+            if (selectedFile != null)
+            {
+                ServerHandler.GetFile(server, port, selectedFile);
+            }
             return RedirectToAction("Index");
         }
 
-        public ActionResult PutFile()
+        [HttpPost]
+        public ActionResult PutFile(string server, string port, string selectedFile)
         {
+            if (selectedFile != null)
+            {
+                ServerHandler.PutFile(server, port, selectedFile);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult DeleteFile(string server, string port, string selectedFile)
+        {
+            if (selectedFile != null)
+            {
+                ServerHandler.DeleteFile(server, port, selectedFile);
+            }
             return RedirectToAction("Index");
         }
 
