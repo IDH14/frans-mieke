@@ -103,7 +103,7 @@ namespace Client_IDH14.Models
             {
                 
 
-            } else if (response.Status == "400")
+            } else if (response.Status == "404")
             {
 
             }
