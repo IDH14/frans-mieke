@@ -12,9 +12,12 @@ namespace Client_IDH14.Controllers
         {
             //Make list so files can be shown on frontend
             var model = new List<FileHandler>();
-
+            string path = @"C:\idh14Client\";
+            string folderChecksum = @"checksum\";
+            ServerFolder.CreateFolder(path);
+            ServerFolder.CreateFolderChecksum(path, folderChecksum);
             // Set c so folder can be checked by client
-            DirectoryInfo c = new DirectoryInfo(@"C:\idh14Client\");
+            DirectoryInfo c = new DirectoryInfo(path);
 
             //Get all files
             FileInfo[] Files2 = c.GetFiles("*.*");
@@ -32,7 +35,7 @@ namespace Client_IDH14.Controllers
             }
 
             //Update checksums.csv file
-            FileHandler.UpdateChecksums();
+            FileHandler.UpdateChecksums(path + folderChecksum);
 
             return View(model);
         }
