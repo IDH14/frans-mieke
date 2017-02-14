@@ -16,3 +16,11 @@ C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\TcpServer\TcpSe
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\TcpServer\TcpServer\obj\Debug\TcpServer.csprojResolveAssemblyReference.cache
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\TcpServer\TcpServer\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\TcpServer\TcpServer\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Frans\Documents\GitHub\frans-mieke\TcpServer\TcpServer\bin\Debug\TcpServer.exe.config
+C:\Users\Frans\Documents\GitHub\frans-mieke\TcpServer\TcpServer\obj\Debug\TcpServer.exe
+C:\Users\Frans\Documents\GitHub\frans-mieke\TcpServer\TcpServer\obj\Debug\TcpServer.pdb
+C:\Users\Frans\Documents\GitHub\frans-mieke\TcpServer\TcpServer\bin\Debug\TcpServer.exe
+C:\Users\Frans\Documents\GitHub\frans-mieke\TcpServer\TcpServer\bin\Debug\TcpServer.pdb
+C:\Users\Frans\Documents\GitHub\frans-mieke\TcpServer\TcpServer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Frans\Documents\GitHub\frans-mieke\TcpServer\TcpServer\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Frans\Documents\GitHub\frans-mieke\TcpServer\TcpServer\obj\Debug\TcpServer.csprojResolveAssemblyReference.cache

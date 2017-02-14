@@ -24,9 +24,9 @@ namespace Client_IDH14.Models
             }
         }
 
-        public static void UpdateChecksums()
+        public static void UpdateChecksums(string path)
         {
-            string path = @"C:\";
+            //string path = @"C:\";
             string checksumFile = @"checksums.csv";
 
             if (!File.Exists(path + checksumFile))
