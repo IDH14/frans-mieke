@@ -4,6 +4,16 @@
     ViewBag.Title = "Home Page";
 }
 
+@{
+    var message = TempData["AlertMessage"] ?? string.Empty;
+}
+
+<script type="text/javascript">
+    var message = '@message';
+    if(message)
+        alert(message);
+</script>
+
 <h2>Get a file</h2>
 
 <form method="post" runat="server" action="Home/GetFile">

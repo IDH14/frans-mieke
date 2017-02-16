@@ -40,46 +40,54 @@ namespace Client_IDH14.Controllers
             return View(model);
         }
 
-
-        public ActionResult Connect(string server, string port)
-        {
-            ServerHandler.Connect(server, port);
-            return RedirectToAction("Index");
-        }
-
         [HttpPost]
         public ActionResult GetListServer(string server, string port)
         {
             ServerHandler.GetList(server, port);
+
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult GetFile(string server, string port, string selectedFile)
         {
-            if (selectedFile != null)
+            if (selectedFile != null && server != "" && port != "")
             {
                 ServerHandler.GetFile(server, port, selectedFile);
             }
+            else
+            {
+                TempData["AlertMessage"] = "Fill in template";
+            }
+
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult PutFile(string server, string port, string selectedFile)
         {
-            if (selectedFile != null)
+            if (selectedFile != null && server != "" && port != "")
             {
                 ServerHandler.PutFile(server, port, selectedFile);
             }
+            else
+            {
+                TempData["AlertMessage"] = "Fill in template";
+            }
+
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult DeleteFile(string server, string port, string selectedFile)
         {
-            if (selectedFile != null)
+            if (selectedFile != null && server != "" && port != "")
             {
                 ServerHandler.DeleteFile(server, port, selectedFile);
+            }
+            else
+            {
+                TempData["AlertMessage"] = "Fill in template";
             }
             return RedirectToAction("Index");
         }

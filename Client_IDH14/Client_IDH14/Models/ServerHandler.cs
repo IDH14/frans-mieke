@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Web;
@@ -101,7 +102,29 @@ namespace Client_IDH14.Models
 
             if (response.Status == "200")
             {
-                
+                //3 stappen: als het bestand lokaal niet bestaat opslaan
+                //Als het wel bestaat en checksum komt overeen: melding geven (Bestanden zijn al gelijk)
+                //Als het wel bestaat en checksum komt niet overeen: melding geven (Conflict)
+
+                List<string> filenames = FileHandler.GetFilenames();
+                var fileName = Base64.Base64Decode(response.FileName);
+
+
+                if (filenames.Contains(fileName)) { 
+               
+
+                } else
+                {
+                    // Set c so folder can be checked by client
+                    DirectoryInfo c = new DirectoryInfo(@"C:\idh14Client\");
+
+                    var createFile = File.Create(c + fileName);
+                    createFile.Close();
+
+                    File.WriteAllBytes(c + fileName, Convert.FromBase64String(response.Content));
+
+
+                }
 
             } else if (response.Status == "404")
             {

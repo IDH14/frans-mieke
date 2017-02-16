@@ -26,14 +26,7 @@ namespace Client_IDH14.Models
 
         public static void UpdateChecksums(string path)
         {
-            //string path = @"C:\";
             string checksumFile = @"checksums.csv";
-
-//            if (!File.Exists(path + checksumFile))
- //           {
-  //              using (var myFile = File.Create(path + checksumFile))
-  //              { }
-  //          }
 
             if (File.Exists(path + checksumFile))
             {
@@ -85,6 +78,26 @@ namespace Client_IDH14.Models
             return model;
         }
 
+        public static List<string> GetFilenames(){
+
+            var model = new List<string>();
+
+            // Set c so folder can be checked by client
+            DirectoryInfo c = new DirectoryInfo(@"C:\idh14Client\");
+
+            //Get all files
+            FileInfo[] Files2 = c.GetFiles("*.*");
+
+            foreach (FileInfo file in Files2)
+            {
+                FileHandler tempFile = new FileHandler();
+                tempFile.FileName = file.Name;
+                model.Add(file.Name);
+            }
+
+            return model;
+        }
+
         public static string FileNameToJSON(string selectedFile)
         {
             string fileName = Base64.Base64Encode(selectedFile);
@@ -103,7 +116,7 @@ namespace Client_IDH14.Models
             str += " 'filename': '" + fileName;
             //str += " 'content': '" + content + "',";
             //str += " 'checksum': '" + checksum + "',";
-            //str += " 'originalchecksum': '" + originalchecksum + "',";
+            //str += " 'originalchecksum': '" + originalchecksum + "'";
             str += "}";
             return str;
         }
@@ -120,7 +133,7 @@ namespace Client_IDH14.Models
 
             string str = "DELETE {";
             str += " 'filename': '" + fileName;
-            str += "}";
+            str += "'}";
             return str;
         }
     }
