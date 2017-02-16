@@ -23,7 +23,8 @@ namespace TcpServer
         }
         public static void CreateChecksums(String path)
         {
-            File.Create(path + file);
+            var createFile = File.Create(path + file);
+            createFile.Close();
             Console.WriteLine("The file (Checksums.csv) was created successfully at {0}.", Directory.GetCreationTime(path));
         }
 

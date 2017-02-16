@@ -29,11 +29,11 @@ namespace Client_IDH14.Models
             //string path = @"C:\";
             string checksumFile = @"checksums.csv";
 
-            if (!File.Exists(path + checksumFile))
-            {
-                using (var myFile = File.Create(path + checksumFile))
-                { }
-            }
+//            if (!File.Exists(path + checksumFile))
+ //           {
+  //              using (var myFile = File.Create(path + checksumFile))
+  //              { }
+  //          }
 
             if (File.Exists(path + checksumFile))
             {

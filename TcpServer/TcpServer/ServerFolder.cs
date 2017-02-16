@@ -19,14 +19,14 @@ namespace TcpServer
                 if (Directory.Exists(path))
                 {
                     Console.WriteLine("That directory exists already.");
-                    Checksums.ExistsChecksums(path);
+                    //Checksums.ExistsChecksums(path);
                 }
                 else
                 {
                     // Try to create the directory.
                     DirectoryInfo di = Directory.CreateDirectory(path);
                     Console.WriteLine("The directory (idh14Server) was created successfully at {0}.", Directory.GetCreationTime(path));
-                    Checksums.ExistsChecksums(path);
+                    //Checksums.ExistsChecksums(path);
                 }
                 // Delete the directory.
                 // di.Delete();

@@ -34,7 +34,8 @@ namespace Client_IDH14.Models
         }
         public static void CreateChecksums(string path, string file)
         {
-            File.Create(path + file);
+            var checksumFile = File.Create(path + file);
+            checksumFile.Close();
             Console.WriteLine("The file (Checksums.csv) was created successfully at {0}.", Directory.GetCreationTime(path));
         }
     }
