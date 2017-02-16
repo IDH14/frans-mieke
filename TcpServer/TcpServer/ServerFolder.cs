@@ -39,26 +39,6 @@ namespace TcpServer
             finally { }
         }
 
-        public static void GetFiles(string path)
-        {
-            try
-            {
-                if (Directory.Exists(path))
-                {
-                    // This path is a directory
-                    ProcessDirectory(path);
-                }
-                else
-                {
-                    Console.WriteLine("{0} is not a valid file or directory.", path);
-                }
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                Console.WriteLine("DirectoryNotFoundException: {0}", e);
-            }
-        }
-
         // Process all files in the directory passed in, recurse on any directories 
         // that are found, and process the files they contain.
         public static void ProcessDirectory(string targetDirectory)
@@ -107,7 +87,7 @@ namespace TcpServer
                         Byte[] bytes = File.ReadAllBytes(specificEntry);
                         String content = Convert.ToBase64String(bytes);
                         response = FileHandler.ResponseGET200ToJSON(name2, content, entry);
-                        
+
                     }
                 }
             }
@@ -139,7 +119,8 @@ namespace TcpServer
             string response = null;
             List<string> fileNames = new List<string>();
 
-            foreach (var entry in fileEntries) {
+            foreach (var entry in fileEntries)
+            {
                 string name = Path.GetFileName(entry);
                 fileNames.Add(name);
             }
@@ -147,7 +128,7 @@ namespace TcpServer
 
             if (fileNames.Contains(fileName))
             {
-                string checksum = FileHandler.GetSha1Hash(filePath);
+                string checksum = Checksums.GetSha1Hash(filePath);
                 if (checksum == fileChecksum)
                 {
                     File.Delete(filePath);
@@ -158,7 +139,8 @@ namespace TcpServer
                     response = FileHandler.ResponseDELETE412ToJSON();
                 }
             }
-            else {
+            else
+            {
                 response = FileHandler.ResponseDELETE404ToJSON();
             }
 

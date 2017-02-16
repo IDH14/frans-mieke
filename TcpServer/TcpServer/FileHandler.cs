@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Security.Cryptography;
-
-namespace TcpServer
+﻿namespace TcpServer
 {
     public class FileHandler
     {
@@ -14,8 +10,8 @@ namespace TcpServer
         public static string ResponseGET200ToJSON(string name2, string content, string entry)
         {
             string name = Base64.Base64Encode(name2);
-            string checksum = GetSha1Hash(entry);
-                        
+            string checksum = Checksums.GetSha1Hash(entry);
+
             string str = "RESPONSE {";
             str += " 'status': '200',";
             str += " 'filename': '" + name + "',";
@@ -61,17 +57,9 @@ namespace TcpServer
             str += " 'status': '412'";
             str += " 'message' : 'You are trying to delete an older version of a document'";
             str += "}";
-            
+
             return str;
         }
- 
-        public static string GetSha1Hash(string filePath)
-        {
-            using (FileStream fs = File.OpenRead(filePath))
-            {
-                SHA1 sha = new SHA1Managed();
-                return BitConverter.ToString(sha.ComputeHash(fs));
-            }
-        }
+
     }
 }

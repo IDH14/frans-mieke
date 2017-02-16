@@ -2,7 +2,6 @@
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 
 namespace TcpServer
 {
@@ -85,7 +84,8 @@ namespace TcpServer
             {
                 Console.WriteLine("SocketException: {0}", e);
             }
-            catch (IOException ex) {
+            catch (IOException ex)
+            {
                 Console.WriteLine("Connection closed by client", ex);
             }
             finally
