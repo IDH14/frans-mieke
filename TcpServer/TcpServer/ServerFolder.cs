@@ -125,14 +125,55 @@ namespace TcpServer
 
         }
 
-        public static void DeleteFile(string data)
+        public static string DeleteFile(string path, string data)
         {
+            string cleanData = SplitString(data);
 
+            FileHandler file = JsonConvert.DeserializeObject<FileHandler>(cleanData);
+
+            string fileName = Base64.Base64Decode(file.FileName);
+            string fileChecksum = file.Checksum;
+            Console.WriteLine("Check " + fileName);
+
+            string[] fileEntries = Directory.GetFiles(path);
+            string response = null;
+            List<string> fileNames = new List<string>();
+
+            foreach (var entry in fileEntries) {
+                string name = Path.GetFileName(entry);
+                fileNames.Add(name);
+            }
+            string filePath = path + @"\" + fileName;
+
+            if (fileNames.Contains(fileName))
+            {
+                string checksum = FileHandler.GetSha1Hash(filePath);
+                if (checksum == fileChecksum)
+                {
+                    File.Delete(filePath);
+                    response = FileHandler.ResponseDELETE200ToJSON();
+                }
+                else
+                {
+                    response = FileHandler.ResponseDELETE412ToJSON();
+                }
+            }
+            else {
+                response = FileHandler.ResponseDELETE404ToJSON();
+            }
+
+            return response;
         }
 
-        public static void GetList()
+        public static string GetList(string path, string data)
         {
+            string response = null;
+            if (response == null)
+            {
+                response = FileHandler.ResponseGET404ToJSON();
+            }
 
+            return response;
         }
 
         public static string SplitString(string data)

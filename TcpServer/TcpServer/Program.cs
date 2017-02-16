@@ -16,7 +16,7 @@ namespace TcpServer
                 // Set the TcpListener on port 13000.
                 Int32 port = 13000;
                 IPAddress localAddr = IPAddress.Parse("127.0.0.1");
-                String path = @"c:\\idh14Server";
+                string path = @"c:\\idh14Server";
 
                 // TcpListener server = new TcpListener(port);
                 server = new TcpListener(localAddr, port);
@@ -63,11 +63,11 @@ namespace TcpServer
                         }
                         else if (data.StartsWith("LIST"))
                         {
-                            ServerFolder.GetList();
+                            response = ServerFolder.GetList(path, data);
                         }
                         else if (data.StartsWith("DELETE"))
                         {
-                            ServerFolder.DeleteFile(data);
+                            response = ServerFolder.DeleteFile(path, data);
                         }
 
                         // Process the data sent by the client.

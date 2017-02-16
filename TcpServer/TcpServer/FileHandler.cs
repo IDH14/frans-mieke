@@ -35,6 +35,36 @@ namespace TcpServer
             return str;
         }
 
+        public static string ResponseDELETE200ToJSON()
+        {
+            string str = "RESPONSE {";
+            str += " 'status': '200'";
+            str += " 'message' : 'The file is deleted from the server'";
+            str += "}";
+
+            return str;
+        }
+
+        public static string ResponseDELETE404ToJSON()
+        {
+            string str = "RESPONSE {";
+            str += " 'status': '404'";
+            str += " 'message' : 'File not Found'";
+            str += "}";
+
+            return str;
+        }
+
+        public static string ResponseDELETE412ToJSON()
+        {
+            string str = "RESPONSE {";
+            str += " 'status': '412'";
+            str += " 'message' : 'You are trying to delete an older version of a document'";
+            str += "}";
+            
+            return str;
+        }
+ 
         public static string GetSha1Hash(string filePath)
         {
             using (FileStream fs = File.OpenRead(filePath))
