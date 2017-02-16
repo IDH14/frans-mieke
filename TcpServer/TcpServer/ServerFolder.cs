@@ -72,27 +72,20 @@ namespace TcpServer
             string[] fileEntries = Directory.GetFiles(path);
             string response = null;
             List<string> fileNames = new List<string>();
-            string specificEntry;
 
-            foreach (string entry in fileEntries)
+            foreach (var entry in fileEntries)
             {
                 string name = Path.GetFileName(entry);
                 fileNames.Add(name);
-
-                foreach (string name2 in fileNames)
-                {
-                    if (fileName == name2)
-                    {
-                        specificEntry = entry;
-                        Byte[] bytes = File.ReadAllBytes(specificEntry);
-                        String content = Convert.ToBase64String(bytes);
-                        response = FileHandler.ResponseGET200ToJSON(name2, content, entry);
-
-                    }
-                }
             }
 
-            if (response == null)
+            string filePath = path + @"\" + fileName;
+
+            if (fileNames.Contains(fileName))
+            {
+                response = FileHandler.ResponseGET200ToJSON(fileName, filePath);
+            }
+            else
             {
                 response = FileHandler.ResponseGET404ToJSON();
             }

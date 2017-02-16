@@ -1,4 +1,7 @@
-﻿namespace TcpServer
+﻿using System;
+using System.IO;
+
+namespace TcpServer
 {
     public class FileHandler
     {
@@ -7,10 +10,13 @@
         public string Checksum { get; set; }
         public string OriginalChecksum { get; set; }
 
-        public static string ResponseGET200ToJSON(string name2, string content, string entry)
+        public static string ResponseGET200ToJSON(string fileName, string filePath)
         {
-            string name = Base64.Base64Encode(name2);
-            string checksum = Checksums.GetSha1Hash(entry);
+            Byte[] bytes = File.ReadAllBytes(filePath);
+            String content = Convert.ToBase64String(bytes);
+
+            string name = Base64.Base64Encode(fileName);
+            string checksum = Checksums.GetSha1Hash(filePath);
 
             string str = "RESPONSE {";
             str += " 'status': '200',";
