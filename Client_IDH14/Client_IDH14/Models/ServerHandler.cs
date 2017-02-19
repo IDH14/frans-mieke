@@ -83,12 +83,29 @@ namespace Client_IDH14.Models
 
             Byte[] data = System.Text.Encoding.Unicode.GetBytes(FileHandler.FileToJSON(selectedFile));
 
-            // Get a client stream for reading and writing.
-            //  Stream stream = client.GetStream();
-
             NetworkStream stream = client.GetStream();
             // Send the message to the connected TcpServer. 
             stream.Write(data, 0, data.Length);
+
+            // Buffer to store the response bytes.
+            data = new Byte[1024 * 1024];
+
+            // String to store the response ASCII representation.
+            String responseData = String.Empty;
+
+            // Read the first batch of the TcpServer response bytes.
+            Int32 bytes = stream.Read(data, 0, data.Length);
+            responseData = System.Text.Encoding.Unicode.GetString(data, 0, bytes);
+            responseData = cleanMessage(data);
+            System.Diagnostics.Debug.WriteLine("Received: {0}", responseData);
+
+            // Close everything.
+            stream.Close();
+            client.Close();
+
+            string cleanData = SplitString(responseData);
+
+
         }
 
         public static void GetList(string server, string port)

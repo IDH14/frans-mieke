@@ -14,8 +14,10 @@ namespace Client_IDH14.Controllers
             var model = new List<FileHandler>();
             string path = @"C:\idh14Client\";
             string folderChecksum = @"checksum\";
+
             ServerFolder.CreateFolder(path);
             ServerFolder.CreateFolderChecksum(path, folderChecksum);
+
             // Set c so folder can be checked by client
             DirectoryInfo c = new DirectoryInfo(path);
 
@@ -33,9 +35,6 @@ namespace Client_IDH14.Controllers
                 tempFile.Checksum = FileHandler.GetSha1Hash(filePath);
                 model.Add(tempFile);
             }
-
-            //Update checksums.csv file
-            FileHandler.UpdateChecksums(path + folderChecksum);
 
             return View(model);
         }

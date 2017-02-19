@@ -107,9 +107,24 @@ namespace TcpServer
 
             if (fileNames.Contains(fileName))
             {
-                response = FileHandler.ResponsePUT412ToJson();
-            } else
+                string checksum = Checksums.GetSha1Hash(path + @"\" + fileName);
+
+                if (checksum == file.OriginalChecksum)
+                {
+                    File.WriteAllBytes(path + @"\" + fileName, Convert.FromBase64String(file.Content));
+                    response = FileHandler.ResponsePUT200ToJson();
+                }
+                else
+                {
+                    response = FileHandler.ResponsePUT412ToJson();
+                }
+            }
+            else
             {
+                var createFile = File.Create(path + @"\" + fileName);
+                createFile.Close();
+
+                File.WriteAllBytes(path + @"\" + fileName, Convert.FromBase64String(file.Content));
                 response = FileHandler.ResponsePUT200ToJson();
             }
             return response;

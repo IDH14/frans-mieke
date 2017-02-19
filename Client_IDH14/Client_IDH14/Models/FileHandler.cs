@@ -10,10 +10,11 @@ namespace Client_IDH14.Models
     public class FileHandler
     {
         public string FileName { get; set; }
-        public string Content { get; set; }
         public string Checksum { get; set; }
         public string OriginalChecksum { get; set; }
+        public string Content { get; set; }
         public string Status { get; set; }
+        public string Message { get; set; }
 
         public static string GetSha1Hash(string filePath)
         {
@@ -21,35 +22,6 @@ namespace Client_IDH14.Models
             {
                 SHA1 sha = new SHA1Managed();
                 return BitConverter.ToString(sha.ComputeHash(fs));
-            }
-        }
-
-        public static void UpdateChecksums(string path)
-        {
-            string checksumFile = @"checksums.csv";
-
-            if (File.Exists(path + checksumFile))
-            {
-                using (var writer = new StreamWriter(path + checksumFile))
-                {
-                    using (var csv = new CsvWriter(writer))
-                    {
-                        csv.WriteHeader<FileHandler>();
-                        var list = GetFiles();
-
-                        foreach (var file in list)
-                        {
-                            csv.WriteRecord(file);
-                        }
-                    }
-                }
-
-            }
-            else
-            {
-                //to do: Controleren of files uit map nieuw zijn t.o.v. checksums.csv
-                //If yes: informatie bijvoegen
-                //If no: informatie vergelijken en updaten
             }
         }
 
@@ -151,7 +123,6 @@ namespace Client_IDH14.Models
         public MyClassMap()
         {
             Map(m => m.FileName).Name("FileName");
-            Map(m => m.Content).Name("Content");
             Map(m => m.Checksum).Name("Checksum");
             Map(m => m.OriginalChecksum).Name("OriginalChecksum");
         }
