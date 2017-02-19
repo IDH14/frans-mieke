@@ -112,11 +112,18 @@ namespace Client_IDH14.Models
         {
             string fileName = Base64.Base64Encode(selectedFile);
 
+            string path = "C:/idh14Client/" + selectedFile;
+            Byte[] bytes = File.ReadAllBytes(path);
+            String content = Convert.ToBase64String(bytes);
+
+            string checksum = FileHandler.GetSha1Hash(path);
+            string originalchecksum = "test";
+
             string str = "PUT {";
-            str += " 'filename': '" + fileName;
-            //str += " 'content': '" + content + "',";
-            //str += " 'checksum': '" + checksum + "',";
-            //str += " 'originalchecksum': '" + originalchecksum + "'";
+            str += " 'filename': '" + fileName + "',";
+            str += " 'content': '" + content + "',";
+            str += " 'checksum': '" + checksum + "',";
+            str += " 'originalchecksum': '" + originalchecksum + "'";
             str += "}";
             return str;
         }
@@ -127,12 +134,13 @@ namespace Client_IDH14.Models
             return str;
         }
 
-        public static string DeleteToJSON(string selectedFile)
+        public static string DeleteToJSON(string selectedFile, string checksumFile)
         {
             string fileName = Base64.Base64Encode(selectedFile);
-
+            
             string str = "DELETE {";
-            str += " 'filename': '" + fileName;
+            str += " 'filename': '" + fileName + "',";
+            str += " 'checksum': '" + checksumFile;
             str += "'}";
             return str;
         }

@@ -8,8 +8,6 @@ namespace TcpServer
 {
     class ServerFolder
     {
-        //static string path = @"c:\idh14Server";
-
         public static void CreateFolder(string path)
         {
             // Specify the directory you want to manipulate.  
@@ -47,11 +45,6 @@ namespace TcpServer
             string[] fileEntries = Directory.GetFiles(targetDirectory);
             foreach (string fileName in fileEntries)
                 ProcessFile(fileName);
-
-            // Recurse into subdirectories of this directory.
-            //string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
-            //foreach (string subdirectory in subdirectoryEntries)
-            //    ProcessDirectory(subdirectory);
         }
 
         // Insert logic for processing found files here.
@@ -93,9 +86,33 @@ namespace TcpServer
             return response;
         }
 
-        public static void PutFile(string data)
+        public static string PutFile(string path, string data)
         {
+            string cleanData = SplitString(data);
 
+            FileHandler file = JsonConvert.DeserializeObject<FileHandler>(cleanData);
+
+            string fileName = Base64.Base64Decode(file.FileName);
+            Console.WriteLine("Check " + fileName);
+           
+            string[] fileEntries = Directory.GetFiles(path);
+            string response = null;
+            List<string> fileNames = new List<string>();
+
+            foreach (var entry in fileEntries)
+            {
+                string name = Path.GetFileName(entry);
+                fileNames.Add(name);
+            }
+
+            if (fileNames.Contains(fileName))
+            {
+                response = FileHandler.ResponsePUT412ToJson();
+            } else
+            {
+                response = FileHandler.ResponsePUT200ToJson();
+            }
+            return response;
         }
 
         public static string DeleteFile(string path, string data)
@@ -140,14 +157,9 @@ namespace TcpServer
             return response;
         }
 
-        public static string GetList(string path, string data)
+        public static string GetList(string path)
         {
-            string response = null;
-            if (response == null)
-            {
-                response = FileHandler.ResponseGET404ToJSON();
-            }
-
+            string response = FileHandler.ResponseLIST200ToJSON(path);                  
             return response;
         }
 

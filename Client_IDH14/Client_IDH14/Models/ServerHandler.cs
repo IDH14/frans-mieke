@@ -10,64 +10,6 @@ namespace Client_IDH14.Models
 {
     public class ServerHandler
     {
-        public static void Connect(string server, string port)
-        {
-            try
-            {
-                // Create a TcpClient.
-                // Note, for this client to work you need to have a TcpServer 
-                // connected to the same address as specified by the server, port
-                // combination.
-                //Int32 port = 13000;
-                String message = "Hello world";
-                int portNumber = Int32.Parse(port);
-
-                TcpClient client = new TcpClient(server, portNumber);
-
-                // Translate the passed message into ASCII and store it as a Byte array.
-                Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
-
-                // Get a client stream for reading and writing.
-                //  Stream stream = client.GetStream();
-
-                NetworkStream stream = client.GetStream();
-
-                // Send the message to the connected TcpServer. 
-                stream.Write(data, 0, data.Length);
-
-                Console.WriteLine("Sent: {0}", message);
-
-                // Receive the TcpServer.response.
-
-                // Buffer to store the response bytes.
-                data = new Byte[256];
-
-                // String to store the response ASCII representation.
-                String responseData = String.Empty;
-
-                // Read the first batch of the TcpServer response bytes.
-                Int32 bytes = stream.Read(data, 0, data.Length);
-                responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-                Console.WriteLine("Received: {0}", responseData);
-
-                // Close everything.
-                stream.Close();
-                client.Close();
-            }
-            catch (ArgumentNullException e)
-            {
-                Console.WriteLine("ArgumentNullException: {0}", e);
-            }
-            catch (SocketException e)
-            {
-                Console.WriteLine("SocketException: {0}", e);
-            }
-
-            Console.WriteLine("\n Press Enter to continue...");
-            Console.Read();
-
-        }
-
         public static void GetFile(string server, string port, string selectedFile) {
 
             int portNumber = Int32.Parse(port);
@@ -79,10 +21,8 @@ namespace Client_IDH14.Models
             // Send the message to the connected TcpServer. 
             stream.Write(data, 0, data.Length);
 
-            Console.WriteLine("Sent: {0}", data);
-
             // Buffer to store the response bytes.
-            data = new Byte[1024];
+            data = new Byte[1024 * 1024];
 
             // String to store the response ASCII representation.
             String responseData = String.Empty;
@@ -109,9 +49,12 @@ namespace Client_IDH14.Models
                 List<string> filenames = FileHandler.GetFilenames();
                 var fileName = Base64.Base64Decode(response.FileName);
 
-
                 if (filenames.Contains(fileName)) { 
-               
+                    
+                    if(response.Checksum == response.Checksum)
+                    {
+                        return;
+                    }
 
                 } else
                 {
@@ -123,7 +66,7 @@ namespace Client_IDH14.Models
 
                     File.WriteAllBytes(c + fileName, Convert.FromBase64String(response.Content));
 
-
+                    //To do: message
                 }
 
             } else if (response.Status == "404")
@@ -146,8 +89,6 @@ namespace Client_IDH14.Models
             NetworkStream stream = client.GetStream();
             // Send the message to the connected TcpServer. 
             stream.Write(data, 0, data.Length);
-
-            Console.WriteLine("Sent: {0}", data);
         }
 
         public static void GetList(string server, string port)
@@ -161,21 +102,54 @@ namespace Client_IDH14.Models
             // Send the message to the connected TcpServer. 
             stream.Write(data, 0, data.Length);
 
-            Console.WriteLine("Sent: {0}", data);
+            // Buffer to store the response bytes.
+            data = new Byte[1024 * 1024];
+
+            // String to store the response ASCII representation.
+            String responseData = String.Empty;
+
+            // Read the first batch of the TcpServer response bytes.
+            Int32 bytes = stream.Read(data, 0, data.Length);
+            responseData = System.Text.Encoding.Unicode.GetString(data, 0, bytes);
+            responseData = cleanMessage(data);
+            System.Diagnostics.Debug.WriteLine("Received: {0}", responseData);
+
+            // Close everything.
+            stream.Close();
+            client.Close();
+
+            string cleanData = SplitString(responseData);
+
         }
 
-        public static void DeleteFile(string server, string port, string selectedFile)
+        public static void DeleteFile(string server, string port, string selectedFile, string checksumFile)
         {
             int portNumber = Int32.Parse(port);
             TcpClient client = new TcpClient(server, portNumber);
 
-            Byte[] data = System.Text.Encoding.Unicode.GetBytes(FileHandler.DeleteToJSON(selectedFile));
+            Byte[] data = System.Text.Encoding.Unicode.GetBytes(FileHandler.DeleteToJSON(selectedFile, checksumFile));
 
             NetworkStream stream = client.GetStream();
             // Send the message to the connected TcpServer. 
             stream.Write(data, 0, data.Length);
 
-            Console.WriteLine("Sent: {0}", data);
+            // Buffer to store the response bytes.
+            data = new Byte[1024 * 1024];
+
+            // String to store the response ASCII representation.
+            String responseData = String.Empty;
+
+            // Read the first batch of the TcpServer response bytes.
+            Int32 bytes = stream.Read(data, 0, data.Length);
+            responseData = System.Text.Encoding.Unicode.GetString(data, 0, bytes);
+            responseData = cleanMessage(data);
+            System.Diagnostics.Debug.WriteLine("Received: {0}", responseData);
+
+            // Close everything.
+            stream.Close();
+            client.Close();
+
+            string cleanData = SplitString(responseData);
         }
 
         public static string SplitString(string data)

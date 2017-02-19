@@ -79,11 +79,11 @@ namespace Client_IDH14.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteFile(string server, string port, string selectedFile)
+        public ActionResult DeleteFile(string server, string port, string selectedFile, string checksumFile)
         {
             if (selectedFile != null && server != "" && port != "")
             {
-                ServerHandler.DeleteFile(server, port, selectedFile);
+                ServerHandler.DeleteFile(server, port, selectedFile, checksumFile);
             }
             else
             {

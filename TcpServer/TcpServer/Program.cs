@@ -24,7 +24,7 @@ namespace TcpServer
                 server.Start();
                 ServerFolder.CreateFolder(path);
                 // Buffer for reading data
-                Byte[] bytes = new Byte[1024];
+                Byte[] bytes = new Byte[1024 * 1024];
                 String data = null;
                 //Checksums.ReadChecksums(path);
                 // Enter the listening loop.
@@ -58,11 +58,11 @@ namespace TcpServer
                         }
                         else if (data.StartsWith("PUT"))
                         {
-                            ServerFolder.PutFile(data);
+                            response = ServerFolder.PutFile(path, data);
                         }
                         else if (data.StartsWith("LIST"))
                         {
-                            response = ServerFolder.GetList(path, data);
+                            response = ServerFolder.GetList(path);
                         }
                         else if (data.StartsWith("DELETE"))
                         {
@@ -70,13 +70,11 @@ namespace TcpServer
                         }
 
                         // Process the data sent by the client.
-                        //data = data.ToUpper();
                         Console.WriteLine("Sent: {0}", response);
                         byte[] msg = System.Text.Encoding.Unicode.GetBytes(response);
 
                         // Send back a response.
                         stream.Write(msg, 0, msg.Length);
-                        //Console.WriteLine("Sent: {0}", msg);
                     }
                 }
             }

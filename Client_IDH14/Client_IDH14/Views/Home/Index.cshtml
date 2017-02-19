@@ -23,7 +23,8 @@
     Port: <input type="text" name="port" />
     </br></br>
     Filename: <input type="text" name="selectedFile" />
-    <input type="submit" value="Get file!" class="btn btn-default" />
+    </br></br>
+    <input type="submit" value="Get file" class="btn btn-default" />
 
 </form>
 
@@ -41,6 +42,8 @@
         <span>
             <input type="checkbox" name="selectedFile" value="@file.FileName" />
             <label for="@file.FileName">@file.FileName</label>
+            <label for="@file.Checksum">@file.Checksum</label>
+            <br />
         </span>
     }
 
@@ -67,6 +70,8 @@
     Port: <input type="text" name="port" />
     </br></br>
     Filename: <input type="text" name="selectedFile" />
-    <input type="submit" value="Delete file!" class="btn btn-default" />
+    Checksum: <input type="text" name="checksumFile" />
+    </br></br>
+    <input type="submit" value="Delete file" class="btn btn-default" />
 
 </form>

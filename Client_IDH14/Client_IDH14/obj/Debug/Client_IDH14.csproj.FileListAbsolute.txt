@@ -206,7 +206,6 @@ C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Cl
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\obj\Debug\Client_IDH14.dll
 C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\obj\Debug\Client_IDH14.pdb
-C:\Users\Mieke\Documents\Visual Studio 2015\Projects\frans-mieke\Client_IDH14\Client_IDH14\obj\Debug\Client_IDH14.csprojResolveAssemblyReference.cache
 C:\Users\Frans\Documents\GitHub\frans-mieke\Client_IDH14\Client_IDH14\bin\roslyn\csc.exe
 C:\Users\Frans\Documents\GitHub\frans-mieke\Client_IDH14\Client_IDH14\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\Frans\Documents\GitHub\frans-mieke\Client_IDH14\Client_IDH14\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
