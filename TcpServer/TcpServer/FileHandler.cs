@@ -95,18 +95,26 @@ namespace TcpServer
             
             DirectoryInfo c = new DirectoryInfo(path);
             FileInfo[] Files2 = c.GetFiles("*.*");
-
+            var count = Files2.Length;
             foreach (FileInfo file in Files2)
             {
                 FileHandler tempFile = new FileHandler();
                 string name = file.Name;
                 string name2 = Base64.Base64Encode(name);
-
                 string checksum = Checksums.GetSha1Hash(path + @"\" + name);
+                str += "{";
+                str += "'filename': '" + name2 + "',";
+                str += " 'checksum': '" + checksum + "'";
+                if (--count > 0)
+                {
+                    str += "},";
+                }
+                else {
+                    str += "}";
+                }
+                //string str1 = "{ 'filename': '" + name2 + "', 'checksum': '" + checksum + "'},";
 
-                string str1 = "{ 'filename': '" + name2 + "', 'checksum': '" + checksum + "' }";
-
-                str += str1;
+                    //str += str1;
             }
 
             str += "] }";

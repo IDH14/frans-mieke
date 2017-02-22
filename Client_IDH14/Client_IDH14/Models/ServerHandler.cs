@@ -1,16 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using Client_IDH14.Controllers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
-using System.Web;
 
 namespace Client_IDH14.Models
 {
     public class ServerHandler
     {
-        public static void GetFile(string server, string port, string selectedFile) {
+        public static string GetFile(string server, string port, string selectedFile, string path, string checksumPath)
+        {
 
             int portNumber = Int32.Parse(port);
             TcpClient client = new TcpClient(server, portNumber);
@@ -49,34 +49,40 @@ namespace Client_IDH14.Models
                 List<string> filenames = FileHandler.GetFilenames();
                 var fileName = Base64.Base64Decode(response.FileName);
 
-                if (filenames.Contains(fileName)) { 
-                    
-                    if(response.Checksum == response.Checksum)
-                    {
-                        return;
-                    }
-
-                } else
+                if (filenames.Contains(fileName))
                 {
-                    // Set c so folder can be checked by client
-                    DirectoryInfo c = new DirectoryInfo(@"C:\idh14Client\");
+                    bool fileInChecksum = Checksums.checksumFileCorrect(path, checksumPath, fileName);
+                    if (fileInChecksum == true)
+                    {
+                        File.Delete(path + fileName);
 
-                    var createFile = File.Create(c + fileName);
+                        var createFile = File.Create(path + fileName);
+                        createFile.Close();
+
+                        File.WriteAllBytes(path + fileName, Convert.FromBase64String(response.Content));
+                        Checksums.UpdateChecksums(path + checksumPath, response.Checksum, fileName);
+                        return response.Status;
+                    }
+                }
+                else
+                {
+                    var createFile = File.Create(path + fileName);
                     createFile.Close();
 
-                    File.WriteAllBytes(c + fileName, Convert.FromBase64String(response.Content));
-
-                    //To do: message
+                    File.WriteAllBytes(path + fileName, Convert.FromBase64String(response.Content));
+                    Checksums.UpdateNewChecksums(path + checksumPath);
+                    return response.Status;
                 }
 
-            } else if (response.Status == "404")
-            {
-
             }
-
+            else if (response.Status == "404")
+            {
+                return response.Status;
+            }
+            return "";
         }
 
-        public static void PutFile(string server, string port, string selectedFile)
+        public static string PutFile(string server, string port, string selectedFile)
         {
             int portNumber = Int32.Parse(port);
             TcpClient client = new TcpClient(server, portNumber);
@@ -104,11 +110,21 @@ namespace Client_IDH14.Models
             client.Close();
 
             string cleanData = SplitString(responseData);
+            FileHandler response = JsonConvert.DeserializeObject<FileHandler>(cleanData);
 
+            if (response.Status == "200")
+            {
+                return response.Status;
+            }
+            else if (response.Status == "404")
+            {
+                return response.Status;
+            }
 
+            return "";
         }
 
-        public static void GetList(string server, string port)
+        public static string GetList(string server, string port)
         {
             int portNumber = Int32.Parse(port);
             TcpClient client = new TcpClient(server, portNumber);
@@ -136,14 +152,31 @@ namespace Client_IDH14.Models
             client.Close();
 
             string cleanData = SplitString(responseData);
-
+            FileHandler response = JsonConvert.DeserializeObject<FileHandler>(cleanData);
+           
+            if (response.Status == "200")
+            {
+ /*
+                foreach (var file in response.Files)
+                {
+                    Console.WriteLine(file.FileName);
+                }*/
+                /*
+                var jsonObj = new JavaScriptSerializer().Deserialize<RootObj>(json);
+                foreach (var obj in jsonObj.objectList)
+                {
+                    Console.WriteLine(obj.address);
+                }*/
+                return response.Files;
+            }
+            return "";
         }
 
-        public static void DeleteFile(string server, string port, string selectedFile, string checksumFile)
+        public static string DeleteFile(string server, string port, string selectedFile, string path, string checksumPath)
         {
             int portNumber = Int32.Parse(port);
             TcpClient client = new TcpClient(server, portNumber);
-
+            string checksumFile = Checksums.getChecksumFile(path, checksumPath, selectedFile);
             Byte[] data = System.Text.Encoding.Unicode.GetBytes(FileHandler.DeleteToJSON(selectedFile, checksumFile));
 
             NetworkStream stream = client.GetStream();
@@ -167,6 +200,23 @@ namespace Client_IDH14.Models
             client.Close();
 
             string cleanData = SplitString(responseData);
+            FileHandler response = JsonConvert.DeserializeObject<FileHandler>(cleanData);
+
+            if (response.Status == "200")
+            {
+                File.Delete(path + selectedFile);
+                Checksums.UpdateNewChecksums(path + checksumPath);
+                return response.Status;
+            }
+            else if (response.Status == "404")
+            {
+                return response.Status;
+            }
+            else if (response.Status == "412")
+            {
+                return response.Status;
+            }
+            return "";
         }
 
         public static string SplitString(string data)

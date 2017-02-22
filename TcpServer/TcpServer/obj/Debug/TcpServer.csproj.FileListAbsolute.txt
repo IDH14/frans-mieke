@@ -23,4 +23,3 @@ C:\Users\Frans\Documents\GitHub\frans-mieke\TcpServer\TcpServer\bin\Debug\TcpSer
 C:\Users\Frans\Documents\GitHub\frans-mieke\TcpServer\TcpServer\bin\Debug\TcpServer.pdb
 C:\Users\Frans\Documents\GitHub\frans-mieke\TcpServer\TcpServer\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Frans\Documents\GitHub\frans-mieke\TcpServer\TcpServer\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Frans\Documents\GitHub\frans-mieke\TcpServer\TcpServer\obj\Debug\TcpServer.csprojResolveAssemblyReference.cache

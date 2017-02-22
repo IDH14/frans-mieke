@@ -15,15 +15,7 @@ namespace Client_IDH14.Models
         public string Content { get; set; }
         public string Status { get; set; }
         public string Message { get; set; }
-
-        public static string GetSha1Hash(string filePath)
-        {
-            using (FileStream fs = File.OpenRead(filePath))
-            {
-                SHA1 sha = new SHA1Managed();
-                return BitConverter.ToString(sha.ComputeHash(fs));
-            }
-        }
+        public string Files { get; set; }
 
         public static List<FileHandler> GetFiles()
         {
@@ -43,7 +35,7 @@ namespace Client_IDH14.Models
                 string filePath = c + file.Name;
 
                 //Show SHA1 hash of current version of the file
-                tempFile.Checksum = FileHandler.GetSha1Hash(filePath);
+                tempFile.Checksum = Checksums.GetSha1Hash(filePath);
 
                 model.Add(tempFile);
             }
@@ -88,7 +80,7 @@ namespace Client_IDH14.Models
             Byte[] bytes = File.ReadAllBytes(path);
             String content = Convert.ToBase64String(bytes);
 
-            string checksum = FileHandler.GetSha1Hash(path);
+            string checksum = Checksums.GetSha1Hash(path);
             string originalchecksum = "test";
 
             string str = "PUT {";

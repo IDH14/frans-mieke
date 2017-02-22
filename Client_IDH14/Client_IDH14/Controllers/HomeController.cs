@@ -8,15 +8,16 @@ namespace Client_IDH14.Controllers
 {
     public class HomeController : Controller
     {
+        string path = @"C:\idh14Client\";
+        string folderChecksum = @"checksum\";
         public ActionResult Index()
         {
             //Make list so files can be shown on frontend
             var model = new List<FileHandler>();
-            string path = @"C:\idh14Client\";
-            string folderChecksum = @"checksum\";
 
-            ServerFolder.CreateFolder(path);
-            ServerFolder.CreateFolderChecksum(path, folderChecksum);
+
+            ClientFolder.CreateFolder(path);
+            ClientFolder.CreateFolderChecksum(path, folderChecksum);
 
             // Set c so folder can be checked by client
             DirectoryInfo c = new DirectoryInfo(path);
@@ -32,7 +33,7 @@ namespace Client_IDH14.Controllers
                 string filePath = c + file.Name;
 
                 //Show SHA1 hash of current version of the file
-                tempFile.Checksum = FileHandler.GetSha1Hash(filePath);
+                tempFile.Checksum = Checksums.GetSha1Hash(filePath);
                 model.Add(tempFile);
             }
 
@@ -42,8 +43,15 @@ namespace Client_IDH14.Controllers
         [HttpPost]
         public ActionResult GetListServer(string server, string port)
         {
-            ServerHandler.GetList(server, port);
-
+            if (server != "" && port != "")
+            {
+                string message = ServerHandler.GetList(server, port);
+                TempData["AlertMessage"] = message;
+            }
+            else
+            {
+                TempData["AlertMessage"] = "Fill in template";
+            }
             return RedirectToAction("Index");
         }
 
@@ -52,7 +60,8 @@ namespace Client_IDH14.Controllers
         {
             if (selectedFile != null && server != "" && port != "")
             {
-                ServerHandler.GetFile(server, port, selectedFile);
+                string message = ServerHandler.GetFile(server, port, selectedFile, path, folderChecksum);
+                TempData["AlertMessage"] = message;
             }
             else
             {
@@ -67,7 +76,8 @@ namespace Client_IDH14.Controllers
         {
             if (selectedFile != null && server != "" && port != "")
             {
-                ServerHandler.PutFile(server, port, selectedFile);
+                string message = ServerHandler.PutFile(server, port, selectedFile);
+                TempData["AlertMessage"] = message;
             }
             else
             {
@@ -82,7 +92,8 @@ namespace Client_IDH14.Controllers
         {
             if (selectedFile != null && server != "" && port != "")
             {
-                ServerHandler.DeleteFile(server, port, selectedFile, checksumFile);
+                string message = ServerHandler.DeleteFile(server, port, selectedFile, path, folderChecksum);
+                TempData["AlertMessage"] = message;
             }
             else
             {

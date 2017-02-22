@@ -1,12 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.IO;
 
 namespace Client_IDH14.Models
 {
-    public class ServerFolder
+    public class ClientFolder
     {
         public static void CreateFolder(string path)
         {
@@ -20,8 +16,6 @@ namespace Client_IDH14.Models
                     DirectoryInfo di = Directory.CreateDirectory(path);
                 }
             }
-            catch (Exception e) { }
-
             finally { }
         }
 
@@ -42,8 +36,6 @@ namespace Client_IDH14.Models
                     Checksums.ExistsChecksums(path + pathChecksum);
                 }
             }
-            catch (Exception e) { }
-
             finally { }
         }
     }

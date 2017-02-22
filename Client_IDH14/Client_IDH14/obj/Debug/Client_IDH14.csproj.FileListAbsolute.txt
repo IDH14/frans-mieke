@@ -276,4 +276,3 @@ C:\Users\Frans\Documents\GitHub\frans-mieke\Client_IDH14\Client_IDH14\bin\Micros
 C:\Users\Frans\Documents\GitHub\frans-mieke\Client_IDH14\Client_IDH14\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Frans\Documents\GitHub\frans-mieke\Client_IDH14\Client_IDH14\obj\Debug\Client_IDH14.dll
 C:\Users\Frans\Documents\GitHub\frans-mieke\Client_IDH14\Client_IDH14\obj\Debug\Client_IDH14.pdb
-C:\Users\Frans\Documents\GitHub\frans-mieke\Client_IDH14\Client_IDH14\obj\Debug\Client_IDH14.csprojResolveAssemblyReference.cache

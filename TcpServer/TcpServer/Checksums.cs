@@ -11,7 +11,8 @@ namespace TcpServer
             using (FileStream fs = File.OpenRead(filePath))
             {
                 SHA1 sha = new SHA1Managed();
-                return BitConverter.ToString(sha.ComputeHash(fs));
+                var data = BitConverter.ToString(sha.ComputeHash(fs));
+                return data;
             }
         }
     }

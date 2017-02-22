@@ -1,7 +1,9 @@
 ﻿using CsvHelper;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace Client_IDH14.Models
 {
@@ -15,12 +17,7 @@ namespace Client_IDH14.Models
             {
                 if (!File.Exists(path + file))
                 {
-                    CreateChecksums(path, file);
-                    UpdateNewChecksums(path);
-                }
-                else
-                {
-                    UpdateChecksums(path);
+                    CreateChecksumsFile(path, file);
                 }
             }
             else
@@ -31,7 +28,7 @@ namespace Client_IDH14.Models
             }
         }
 
-        public static void CreateChecksums(string path, string file)
+        public static void CreateChecksumsFile(string path, string file)
         {
             var checksumFile = File.Create(path + file);
             checksumFile.Close();
@@ -39,9 +36,7 @@ namespace Client_IDH14.Models
 
         public static void UpdateNewChecksums(string path)
         {
-            string checksumFile = @"checksums.csv";
-
-            using (var writer = new StreamWriter(path + checksumFile))
+            using (var writer = new StreamWriter(path + file))
             {
                 using (var csv = new CsvWriter(writer))
                 {
@@ -60,12 +55,48 @@ namespace Client_IDH14.Models
                 }
             }
         }
-
-        public static void UpdateChecksums(string path)
+        public static string getChecksumFile(string path, string checksumPath, string fileName)
         {
-            string checksumFile = @"checksums.csv";
+            string checksum = "";
+            string[] existingLines = File.ReadAllLines(path + checksumPath + file);
+            existingLines = existingLines.Skip(1).ToArray();
 
-            string[] existingLines = File.ReadAllLines(path + checksumFile);
+            List<string> newLines = new List<string>();
+
+            foreach (string line in existingLines)
+            {
+                string[] columns = line.Split(new char[] { ',' });
+                checksum = columns[1];
+                string name = columns[0];
+                if (fileName == name)
+                {
+                    return checksum;
+                }
+            }
+            return checksum;
+        }
+        public static void deleteChecksumFromFile(string path, string checksumPath, string fileName)
+        {
+            string checksum = "";
+            string[] existingLines = File.ReadAllLines(path + checksumPath + file);
+            //existingLines = existingLines.Skip(1).ToArray();
+
+            List<string> newLines = new List<string>();
+
+            foreach (string line in existingLines)
+            {
+                string[] columns = line.Split(new char[] { ',' });
+                checksum = columns[1];
+                string name = columns[0];
+                if (fileName != name)
+                {
+                    newLines.Add(string.Join(",", columns));
+                }
+            }
+        }
+
+        public static bool checksumFileCorrect(string path, string checksumPath, string fileName) {
+            string[] existingLines = File.ReadAllLines(path + checksumPath + file);
             existingLines = existingLines.Skip(1).ToArray();
 
             List<string> newLines = new List<string>();
@@ -75,8 +106,41 @@ namespace Client_IDH14.Models
                 string[] columns = line.Split(new char[] { ',' });
                 string checksum = columns[1];
                 string name = columns[0];
+                if (fileName == name) {
+                    string checksum1 = GetSha1Hash(path + name);
+                    if (checksum == checksum1)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
-                string checksum1 = FileHandler.GetSha1Hash(path + name);
+        public static void UpdateChecksums(string path, string newChecksum, string fileName)
+        {
+
+            string[] existingLines = File.ReadAllLines(path + file);
+            //existingLines = existingLines.Skip(1).ToArray();
+
+            List<string> newLines = new List<string>();
+
+            foreach (string line in existingLines)
+            {
+
+                string[] columns = line.Split(new char[] { ',' });
+                string checksum = columns[1];
+                string name = columns[0];
+                string newLine;
+                if (fileName == name)
+                {
+                    columns[1] = newChecksum;
+                    newLine = string.Join(",", columns);
+                    newLines.Add(newLine);
+                }else { 
+
+                /*
+                string checksum1 = GetSha1Hash(path + name);
 
                 if(checksum != checksum1)
                     {
@@ -85,10 +149,24 @@ namespace Client_IDH14.Models
 
                 columns[1] = checksum;
                 string newLine = string.Join(",", columns);
-                newLines.Add(newLine);           
+                newLines.Add(newLine);
+                */
+                columns[1] = checksum;
+                newLine = string.Join(",", columns);
+                newLines.Add(newLine);
+                }
             }
 
-            File.WriteAllLines(path + checksumFile, newLines);
+            File.WriteAllLines(path + file, newLines);
+        }
+
+        public static string GetSha1Hash(string filePath)
+        {
+            using (FileStream fs = File.OpenRead(filePath))
+            {
+                SHA1 sha = new SHA1Managed();
+                return BitConverter.ToString(sha.ComputeHash(fs));
+            }
         }
     }
 }
